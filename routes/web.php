@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\usersController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\statisticsController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -18,4 +19,5 @@ Route::get('/dashboard', [dashboardController::class, 'index']);
 /* Users  */
 Route::get('/users', [usersController::class, 'index']);
 
-/*  */
+/* Statistics */
+Route::get('/statistics', [statisticsController::class, 'index']);
