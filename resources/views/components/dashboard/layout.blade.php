@@ -12,9 +12,9 @@
         <x-dashboard.sidebar></x-dashboard.sidebar>
         {{-- / Sidebar --}}
 
-        {{-- Main Content --}}
+        {{-- Main Content Slot--}}
         {{$slot}}
-        {{-- / Main Content --}}
+        {{-- / Main Content Slot--}}
 
         {{-- Footer --}}
         <x-dashboard.footer></x-dashboard.footer>

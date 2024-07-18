@@ -1,11 +1,11 @@
-<x-dashboard.layout>
-    {{-- Page content --}}
+<template>
+    <!-- Page content -->
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-wrapper-before"></div>
             <div class="content-header row justify-content-between">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">{{ucfirst(request()->path())}}</h3>
+                    <h3 class="content-header-title">{{''}}</h3>
                 </div>
                 <div class="content-header-right col-md-4 col-12 mb-2 d-flex justify-content-end">
                     <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-bs-toggle="modal" data-bs-target="#manageUserModal"><i class="la la-user"></i> New User</button>
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-    {{-- / Page content --}}
-</x-dashboard.layout>
+    <!-- / Page content -->
+</template>
