@@ -14,7 +14,7 @@ Route::redirect('/', '/login', 301);
 /* Login */
 Route::get('/login', [loginController::class, 'index'])->name('login');
 
-Route::middleware('auth')->group(function(){
+//Route::middleware('auth')->group(function(){
     /* Dashboard */
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard', ['page' => "Dashboard"]);
@@ -34,5 +34,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/settings', function(){
         return Inertia::render('Settings', ['page' => "Dashboard"]);
     });
-});
+//});
 
