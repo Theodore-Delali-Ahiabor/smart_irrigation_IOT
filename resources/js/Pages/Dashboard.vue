@@ -68,7 +68,7 @@
                             <h5 class="text-bold position-absolute p-1">Irrigation Chart</h5>
                             <div class=" position-relative pt-3">
                                 <div class="weatherToggle">
-    
+
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                     <div class="card pull-up ecom-card-1 bg-white">
                         <div class="card-content ecom-card2 h-auto">
                             <h3 class="text-bold px-2 pt-2 d-flex justify-content-between">
-                                <div>4 Days Weather Forcast</div>
+                                <div>2 Days Weather Forcast</div>
                                 <div id="weatherCity"></div>
                             </h3>
                             <div class=" position-relative p-2">
@@ -97,83 +97,103 @@
 </template>
 <script>
    getWeather(6.610549840141285, 0.4781117178657292)
-function getWeather(lat, lng){
-    fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lng+"&appid=5b2a55be2c10defb75c36a882a5b8a4e")
-    .then(response => response.json())
-    .then(data => {
-    // Handle the API response
-    document.getElementById("weatherCity").innerHTML = data.city.name +', '+data.city.country;
-    console.log(data); // You can perform further processing here
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    let weatherInfo = "";
-    let dayInfo = "";
-        for(let i = 0; i <= data.list.length-1; i++){
-            if(i%8==0){
-                console.log(data.list[i].dt_txt)
-                const weatherDate = new Date(data.list[i].dt_txt) ;
-                if(i == 0){
-                    dayInfo += `<div class='accordion-item active mb-2'>
-                                    <h2 class='accordion-header mb-0' id='heading${i}'>
-                                        <button type='button' class='accordion-button w-100 border-0 btn btn-info btn-min-width' data-bs-toggle='collapse' data-bs-target='#accordion${i}' aria-expanded='false' aria-controls='accordion${i}'>
-                                            <strong>${days[weatherDate.getDay()]}, ${months[weatherDate.getMonth()]} ${weatherDate.getDate()}</strong>
-                                        </button>
-                                    </h2>
-                                    <div id='accordion${i}' class='accordion-collapse collapse show' data-bs-parent='#weatherAccordion' >
-                                        <div class='accordion-body'>
-                                            <div class="table-responsive text-nowrap">
-                                                <table class="table table-striped">
-                                                    <tbody class="table-border-bottom-0">`;
-                    for(let j = 0; j <= 7; j++){
-                        const weatherTime = new Date(data.list[j].dt_txt) ;
-                        //console.log(data.list[j].dt_txt+' - '+data.list[j].weather.description)
-                        dayInfo += `<tr>
-                                        <td class="border-0 p-0 px-3">${weatherTime.getUTCHours()}:00</td>
-                                        <td class="border-0 p-0"><img src="http://openweathermap.org/img/wn/${data.list[j].weather[0].icon}@2x.png" width="50" height="50" alt=""></td>
-                                        <td class="border-0 p-0 px-3">${data.list[j].weather[0].description}</td>
-                                    </tr>` ;
-                    }
-                    dayInfo += `</tbody>
-                            </table>
-                        </div>`;
-                }else{
-                    dayInfo += `<div class='accordion-item mb-2'>
-                                    <h2 class='accordion-header mb-0' id='heading${i}'>
-                                        <button type='button' class='accordion-button collapsed w-100 border-0 btn btn-info btn-min-width' data-bs-toggle='collapse' data-bs-target='#accordion${i}' aria-expanded='false' aria-controls='accordion${i}'>
-                                            <strong>${days[weatherDate.getDay()]}, ${months[weatherDate.getMonth()]} ${weatherDate.getDate()}, ${weatherDate.getFullYear()} </strong>
-                                        </button>
-                                    </h2>
-                                    <div id='accordion${i}' class='accordion-collapse collapse ' data-bs-parent='#weatherAccordion' >
-                                        <div class='accordion-body'>
-                                            <div class="table-responsive text-nowrap">
-                                                <table class="table table-striped">
-                                                    <tbody class="table-border-bottom-0">`;
-                    for(let j = i; j <= i + 7 ; j++){
-                        const weatherTime = new Date(data.list[j].dt_txt) ;
-                        dayInfo += `<tr>
-                                        <td class="border-0 p-0 px-3">${weatherTime.getUTCHours()}:00</td>
-                                        <td class="border-0 p-0"><img src="https://openweathermap.org/img/wn/${data.list[j].weather[0].icon}@2x.png" width="50px" height="50px" alt=""></td>
-                                        <td class="border-0 p-0 px-3">${data.list[j].weather[0].description}</td>` ;
-                    }
-                    dayInfo += `</tr>
-                                </tbody>
-                            </table>
-                        </div>`;
-                }
-                dayInfo += `</div>
-                        </div>
-                    </div>
-                </div>`;
+    function getWeather(lat, lng){
+        fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lng+"&appid=5b2a55be2c10defb75c36a882a5b8a4e")
+        .then(response => response.json())
+        .then(data => {
+            // Handle the API response
+            document.getElementById("weatherCity").innerHTML = data.city.name +', '+data.city.country;
 
-                weatherInfo += dayInfo;
-                dayInfo = '';
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            let weatherInfo = "";
+            let dayInfo = "";
+            for(let i = 0; i < 16/* data.list.length */; i++){
+                if(i%8==0){
+                    /* console.log(data.list[i].dt_txt) */
+                    const weatherDate = new Date(data.list[i].dt_txt) ;
+                    if(i == 0){
+                        dayInfo += `<div class='weather-accordion-item active mb-2'>
+                                        <h2 class='accordion-header mb-0' id='heading${i}'>
+                                            <button type='button' class='accordion-button w-100 border-0 btn btn-info btn-min-width' data-bs-toggle='collapse' data-bs-target='#accordion${i}' aria-expanded='false' aria-controls='accordion${i}'>
+                                                <strong>${days[weatherDate.getDay()]}, ${months[weatherDate.getMonth()]} ${weatherDate.getDate()}</strong>
+                                            </button>
+                                        </h2>
+                                        <div id='accordion${i}' class='weather-accordion-collapse collapse show' data-bs-parent='#weatherAccordion' >
+                                            <div class='accordion-body'>
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table table-striped">
+                                                        <tbody class="table-border-bottom-0">`;
+                        for(let j = 0; j <= 7; j++){
+                            const weatherTime = new Date(data.list[j].dt_txt) ;
+                            //console.log(data.list[j].dt_txt+' - '+data.list[j].weather.description)
+                            dayInfo += `<tr>
+                                            <td class="border-0 p-0 px-3">${weatherTime.getUTCHours()}:00</td>
+                                            <td class="border-0 p-0"><img src="http://openweathermap.org/img/wn/${data.list[j].weather[0].icon}@2x.png" width="50" height="50" alt=""></td>
+                                            <td class="border-0 p-0 px-3">${data.list[j].weather[0].description}</td>
+                                        </tr>` ;
+                        }
+                        dayInfo += `</tbody>
+                                </table>
+                            </div>`;
+                    }else{
+                        dayInfo += `<div class='weather-accordion-item mb-2'>
+                                        <h2 class='accordion-header mb-0' id='heading${i}'>
+                                            <button type='button' class='accordion-button collapsed w-100 border-0 btn btn-info btn-min-width' data-bs-toggle='collapse' data-bs-target='#accordion${i}' aria-expanded='false' aria-controls='accordion${i}'>
+                                                <strong>${days[weatherDate.getDay()]}, ${months[weatherDate.getMonth()]} ${weatherDate.getDate()}, ${weatherDate.getFullYear()} </strong>
+                                            </button>
+                                        </h2>
+                                        <div id='accordion${i}' class='weather-accordion-collapse collapse ' data-bs-parent='#weatherAccordion' >
+                                            <div class='accordion-body'>
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table table-striped">
+                                                        <tbody class="table-border-bottom-0">`;
+                        for(let j = i; j <= i + 7 ; j++){
+                            const weatherTime = new Date(data.list[j].dt_txt) ;
+                            dayInfo += `<tr>
+                                            <td class="border-0 p-0 px-3">${weatherTime.getUTCHours()}:00</td>
+                                            <td class="border-0 p-0"><img src="https://openweathermap.org/img/wn/${data.list[j].weather[0].icon}@2x.png" width="50px" height="50px" alt=""></td>
+                                            <td class="border-0 p-0 px-3">${data.list[j].weather[0].description}</td>` ;
+                        }
+                        dayInfo += `</tr>
+                                    </tbody>
+                                </table>
+                            </div>`;
+                    }
+                    dayInfo += `</div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                    weatherInfo += dayInfo;
+                    dayInfo = '';
+                }
             }
-        }
-        $("#weatherAccordion").html(weatherInfo);
+            $("#weatherAccordion").html(weatherInfo);
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error:', error);
+        });
+    }
+
+    /* toggle weather accordian */
+    $(function(){
+        $("body").on('click', ".weather-accordion-item", function(){
+            var $this = $(this); // Current clicked header
+            var $accordionItem = $this.closest('.weather-accordion-item'); // Closest accordion-item
+            var $collapse = $accordionItem.find('.weather-accordion-collapse'); // Find .accordion-collapse within the item
+
+            // Check if the clicked item is already active
+            if (!$accordionItem.hasClass('active')) {
+                // Remove 'active' and 'show' classes from all items
+                $('.weather-accordion-item').removeClass('active');
+                $('.weather-accordion-collapse').removeClass('show');
+
+                // Add 'active' and 'show' class to the clicked item
+                $accordionItem.addClass('active');
+                $collapse.addClass('show');
+            }
+        })
     })
-    .catch(error => {
-    // Handle any errors
-    console.error('Error:', error);
-    });
-}
 </script>
