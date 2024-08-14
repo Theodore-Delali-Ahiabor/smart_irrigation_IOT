@@ -5,11 +5,11 @@
           <ul class="nav navbar-nav mr-auto float-left">
             <li class="nav-item d-block d-md-none"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
             <li class="nav-item d-flex align-items-center">
-                <a class="nav-link nav-link-expand" href="#">
-                    {{date('M')}}
-                    {{date('d')}},
-                    {{date('Y')}}
-                </a>
+              <span class="nav-link " href="#">
+                {{date('M')}}
+                {{date('d')}},
+                {{date('Y')}}
+              </span>
             </li>
           </ul>
           <ul class="nav navbar-nav float-right">

@@ -1,3 +1,10 @@
+<script setup>
+    import {ref} from 'vue';
+
+    let page = ref('Users');
+
+</script>
+
 <template>
     <!-- Page content -->
     <div class="app-content content">
@@ -5,7 +12,7 @@
             <div class="content-wrapper-before"></div>
             <div class="content-header row justify-content-between">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">{{''}}</h3>
+                    <h3 class="content-header-title" id="page">{{ page }}</h3>
                 </div>
                 <div class="content-header-right col-md-4 col-12 mb-2 d-flex justify-content-end">
                     <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-bs-toggle="modal" data-bs-target="#manageUserModal"><i class="la la-user"></i> New User</button>
@@ -54,6 +61,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="" id="manageUserModal">
+        
     </div>
     <!-- / Page content -->
 </template>
