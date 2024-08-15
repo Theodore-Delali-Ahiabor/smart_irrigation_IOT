@@ -1,4 +1,8 @@
 <script setup>
+    import Nav from './Shared/Nav.vue';
+    import Footer from './Shared/Footer.vue';
+    import Sidebar from './Shared/Sidebar.vue';
+
     import {ref} from 'vue';
 
     let page = ref('Users');
@@ -6,6 +10,12 @@
 </script>
 
 <template>
+    <!-- Navigation -->
+    <Nav></Nav>
+    <!-- / Navigation -->
+    <!-- SideBar -->
+    <Sidebar></Sidebar>
+    <!-- / SideBar -->
     <!-- Page content -->
     <div class="app-content content">
         <div class="content-wrapper">
@@ -64,7 +74,7 @@
     </div>
 
     <div class="" id="manageUserModal">
-        
+
     </div>
     <!-- / Page content -->
 </template>

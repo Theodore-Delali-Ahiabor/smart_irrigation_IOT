@@ -10,33 +10,22 @@
     <title>
         Smart Irrigation - {{ucfirst(request()->path())}}
     </title>
-    <link rel="shortcut icon" type="image/x-icon" href="theme-assets/images/ico/favicon.ico">
-    
+    <link rel="shortcut png" href="{{asset('theme-assets/images/logo/logo.png')}}">
+
     <link rel="stylesheet" type="text/css" href="theme-assets/css/vendors.css">
-    
+
     <link rel="stylesheet" type="text/css" href="theme-assets/css/app-lite.css">
-    
+
     <link rel="stylesheet" type="text/css" href="theme-assets/css/core/menu/menu-types/vertical-menu.css">
-    
+
     @vite('resources/js/app.js')
     {{-- @inertiaHead --}}
   </head>
-    <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
-        {{-- fixed-top --}}
-        <x-dashboard.nav></x-dashboard.nav>
-        {{-- / fixed-top --}}
-
-        {{-- Sidebar --}}
-        <x-dashboard.sidebar></x-dashboard.sidebar>
-        {{-- / Sidebar --}}
+    <body class="vertical-layout vertical-menu 2-columns menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
 
         {{-- Main Content Slot--}}
             @inertia
         {{-- / Main Content Slot--}}
-
-        {{-- Footer --}}
-        <x-dashboard.footer></x-dashboard.footer>
-        {{-- / Footer --}}
 
         {{-- Script --}}
         <script src="theme-assets/js/core/libraries/jquery.min.js"></script>

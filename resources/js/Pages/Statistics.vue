@@ -1,4 +1,15 @@
+<script setup>
+    import Nav from './Shared/Nav.vue';
+    import Footer from './Shared/Footer.vue';
+    import Sidebar from './Shared/Sidebar.vue';
+</script>
 <template>
+    <!-- Navigation -->
+    <Nav></Nav>
+    <!-- / Navigation -->
+    <!-- SideBar -->
+    <Sidebar></Sidebar>
+    <!-- / SideBar -->
     <!-- Page content -->
     <div class="app-content content">
         <div class="content-wrapper">

@@ -1,4 +1,5 @@
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
+<template>
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
     <div class="navbar-wrapper">
       <div class="navbar-container content">
         <div class="collapse navbar-collapse show" id="navbar-mobile">
@@ -6,9 +7,9 @@
             <li class="nav-item d-block d-md-none"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
             <li class="nav-item d-flex align-items-center">
               <span class="nav-link " href="#">
-                {{date('M')}}
+                <!-- {{date('M')}}
                 {{date('d')}},
-                {{date('Y')}}
+                {{date('Y')}} -->
               </span>
             </li>
           </ul>
@@ -33,3 +34,4 @@
       </div>
     </div>
   </nav>
+</template>
