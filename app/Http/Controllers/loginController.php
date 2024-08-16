@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class loginController extends Controller
 {
     public static function login(Request $request){
-        $type = "success";
-        $message = "Welcome __, you looged in successfully";
 
         // Validate the request data
         $validated = $request->validate([
@@ -17,12 +16,21 @@ class loginController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        // Process the data (e.g., save to the database)
+        // Authenticating user
+        if (Auth::attempt($validated)) {
+            $request->session()->regenerate();
+
+            $type = "success";
+            $message = "Welcome __, you looged in successfully";
+        }else{
+            $type = "warning";
+            $message = "Invalid login credentials";
+        }
 
         // Return an Inertia response
         return Inertia::render('Login', [
-            'type' => $type,
-            'message' => $message,
+            'type' => isset($type) ? $type : '',
+            'message' => isset($message) ? $message : '',
             'data' => $validated,
         ]);
     }

@@ -7,9 +7,7 @@
             <li class="nav-item d-block d-md-none"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
             <li class="nav-item d-flex align-items-center">
               <span class="nav-link " href="#">
-                <!-- {{date('M')}}
-                {{date('d')}},
-                {{date('Y')}} -->
+               date
               </span>
             </li>
           </ul>

@@ -2,6 +2,7 @@
     import Nav from './Shared/Nav.vue';
     import Footer from './Shared/Footer.vue';
     import Sidebar from './Shared/Sidebar.vue';
+
     if($("#weatherCity")){
         getWeather(6.610549840141285, 0.4781117178657292);
     }
@@ -107,19 +108,14 @@
 
 </script>
 <template>
-    <!-- Navigation -->
-     <Nav></Nav>
-    <!-- / Navigation -->
-    <!-- SideBar -->
+    <Nav></Nav>
     <Sidebar></Sidebar>
-    <!-- / SideBar -->
-    <!-- Page content -->
     <div class="app-content content">
         <div class="content-wrapper">
           <div class="content-wrapper-before"></div>
           <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">{{ '' }}</h3>
+                <h3 class="content-header-title"></h3>
             </div>
           </div>
           <div class="content-body">
@@ -208,9 +204,6 @@
             </div>
           </div>
         </div>
-      </div>
-    <!-- / Page content -->
-    <!-- Footer -->
+    </div>
     <Footer></Footer>
-    <!-- / Footer -->
 </template>

@@ -3,6 +3,35 @@
     import Footer from './Shared/Footer.vue';
     import Sidebar from './Shared/Sidebar.vue';
 
+    import { router, useForm } from '@inertiajs/vue3';
+
+    const addUserForm = useForm({
+        first_name: null,
+        other_name: null,
+        last_name: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
+    })
+
+
+    const manageUserSubmit = () => {
+        addUserForm.post('/user-manage', {
+            onSuccess: (page) => {
+                console.log("page.props.type")
+                fireSimpleSWAL(page.props.type, page.props.message)
+            },
+            onError: (errors) => {
+                for (let key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        fireSimpleSWAL('warning', errors[key])
+                    }
+                    break;
+                }
+            },
+        });
+    }
+
     import {ref} from 'vue';
 
     let page = ref('Users');
@@ -10,13 +39,8 @@
 </script>
 
 <template>
-    <!-- Navigation -->
     <Nav></Nav>
-    <!-- / Navigation -->
-    <!-- SideBar -->
     <Sidebar></Sidebar>
-    <!-- / SideBar -->
-    <!-- Page content -->
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-wrapper-before"></div>
@@ -25,7 +49,7 @@
                     <h3 class="content-header-title" id="page">{{ page }}</h3>
                 </div>
                 <div class="content-header-right col-md-4 col-12 mb-2 d-flex justify-content-end">
-                    <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-bs-toggle="modal" data-bs-target="#manageUserModal"><i class="la la-user"></i> New User</button>
+                    <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#manageUserModal"><i class="la la-user"></i> New User</button>
                 </div>
             </div>
             <div class="content-body">
@@ -73,8 +97,54 @@
         </div>
     </div>
 
-    <div class="" id="manageUserModal">
+    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="card-body" @submit.prevent="manageUserSubmit">
+                <h5 class="mt-2">First Name</h5>
+                <fieldset class="form-group">
+                    <input type="text" class="form-control" v-model="addUserForm.first_name">
+                </fieldset>
 
+                <h5 class="mt-2">Other Name(s)</h5>
+                <fieldset class="form-group">
+                    <input type="text" class="form-control" v-model="addUserForm.other_name">
+                </fieldset>
+
+                <h5 class="mt-2">Last Name</h5>
+                <fieldset class="form-group">
+                    <input type="text" class="form-control" v-model="addUserForm.last_name">
+                </fieldset>
+
+                <h5 class="mt-2">Email Address</h5>
+                <fieldset class="form-group">
+                    <input type="email" class="form-control" v-model="addUserForm.email">
+                </fieldset>
+
+                <h5 class="mt-2">Password</h5>
+                <fieldset class="form-group">
+                    <input type="password" class="form-control" v-model="addUserForm.password">
+                </fieldset>
+
+                <h5 class="mt-2">Confirm Password</h5>
+                <fieldset class="form-group">
+                    <input type="password" class="form-control" v-model="addUserForm.confirmPassword">
+                </fieldset>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+        </div>
     </div>
-    <!-- / Page content -->
+    </div>
+    <Footer></Footer>
 </template>

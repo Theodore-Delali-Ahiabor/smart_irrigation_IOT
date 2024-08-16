@@ -1,7 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
 
-export { fireSimpleSWAL }
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link } from '@inertiajs/vue3'
 
@@ -18,7 +17,7 @@ createInertiaApp({
     },
 })
 
-function fireSimpleSWAL(type, message){
+window.fireSimpleSWAL = function(type, message){
     Swal.fire({
         title: type.charAt(0).toUpperCase() + type.slice(1)+'!',
         text: message,

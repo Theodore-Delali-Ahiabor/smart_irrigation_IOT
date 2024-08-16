@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/users', function(){
         return Inertia::render('Users', ['page' => "Dashboard"]);
     });
+    Route::post('/user-manage', [usersController::class, 'manage']);
 
     /* Statistics */
     Route::get('/statistics', function(){

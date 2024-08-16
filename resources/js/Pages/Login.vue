@@ -1,25 +1,21 @@
 <script setup>
-    import { reactive } from 'vue';
     import { router, useForm } from '@inertiajs/vue3';
-    import { fireSimpleSWAL } from '../app';
 
     const form = useForm({
         email: null,
         password: null,
     })
 
-
     const loginSubmit = () => {
         form.post('/login', {
             onSuccess: (page) => {
-                //responseMessage.value = page.props.message;
-                fireSimpleSWAL('success', page.props.message)
+                fireSimpleSWAL(page.props.type, page.props.message)
+                router.get('/dashboard');
             },
             onError: (errors) => {
-            console.log(errors);
                 for (let key in errors) {
                     if (errors.hasOwnProperty(key)) {
-                        setTimeout(fireSimpleSWAL('warning', errors[key]),200000)
+                        fireSimpleSWAL('warning', errors[key])
                     }
                     break;
                 }
