@@ -24,7 +24,7 @@
     }
 </script>
 <template>
-    <div class="col-12 d-flex align-items-center justify-content-center">
+    <div class="content-body col-12 d-flex align-items-center justify-content-center">
         <div class="col-lg-4 col-md-6 col-sm-12 ">
             <div class="card">
                 <div class="card-header text-center">

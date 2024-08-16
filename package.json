@@ -13,7 +13,9 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.2.0",
-        "sweetalert2": "^11.12.4",
-        "vue": "^3.4.31"
+        "apexcharts": "^3.52.0",
+        "sweetalert2": "^11.6.13",
+        "vue": "^3.4.31",
+        "vue3-apexcharts": "^1.5.3"
     }
 }

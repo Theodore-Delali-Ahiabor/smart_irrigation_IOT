@@ -3,6 +3,7 @@ import '../css/app.css';
 
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link } from '@inertiajs/vue3'
+import VueApexCharts from "vue3-apexcharts";
 
 createInertiaApp({
     resolve: name => {
@@ -12,6 +13,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
         .use(plugin)
+        .use(VueApexCharts)
         .component('Link', Link)
         .mount(el)
     },

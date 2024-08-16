@@ -3,6 +3,8 @@
     import Footer from './Shared/Footer.vue';
     import Sidebar from './Shared/Sidebar.vue';
 
+    import { ref } from 'vue';
+
     if($("#weatherCity")){
         getWeather(6.610549840141285, 0.4781117178657292);
     }
@@ -106,6 +108,30 @@
         })
     })
 
+
+    // Define chart options
+    const chartOptions = ref({
+    chart: {
+        id: 'sales-chart'
+    },
+    xaxis: {
+        categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+    }
+    });
+
+    // Define the data series
+    const series = ref([{
+    name: 'Sales',
+    data: [30, 40, 35, 50, 49, 60, 70]
+    }]);
+
+
+    // the props to receive data from Inertia
+    const props = defineProps({
+        page: String
+    });
+    // Access the data from inertia
+    let page = props.page;
 </script>
 <template>
     <Nav></Nav>
@@ -115,7 +141,7 @@
           <div class="content-wrapper-before"></div>
           <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title"></h3>
+                <h3 class="content-header-title">{{ page }}</h3>
             </div>
           </div>
           <div class="content-body">
@@ -168,7 +194,7 @@
                             </div>
                             <div class="progress-stats-container ct-golden-section height-75 position-relative p-3 d-flex align-items-center justify-content-center w-100 position-relative bottom-0">
                                 <span>OFF</span>
-                                <i class="text-center la la-toggle-on font-large-5 p-1"></i>
+                                <i class="text-center la la-toggle-off font-large-5 p-1"></i>
                                 <span>ON</span>
                             </div>
                         </div>
@@ -179,9 +205,7 @@
                         <div class="card-content ecom-card2 h-auto">
                             <h5 class="text-bold position-absolute p-1">Irrigation Chart</h5>
                             <div class=" position-relative pt-3">
-                                <div class="weatherToggle">
-
-                                </div>
+                                <apexchart height="600" type="area" :options="chartOptions" :series="series"></apexchart>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@
     import Footer from './Shared/Footer.vue';
     import Sidebar from './Shared/Sidebar.vue';
 
+    import {ref} from 'vue';
     import { router, useForm } from '@inertiajs/vue3';
 
     const addUserForm = useForm({
@@ -32,7 +33,6 @@
         });
     }
 
-    import {ref} from 'vue';
 
     // the props to receive data from Inertia
     const props = defineProps({

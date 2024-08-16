@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'User',
             'email' => 'admin@project.com',
             'password' => 'password',
+            'active' => '1',
         ]);
     }
 }
