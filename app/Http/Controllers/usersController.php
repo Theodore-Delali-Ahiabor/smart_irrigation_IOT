@@ -7,6 +7,12 @@ use Inertia\Inertia;
 use App\Models\User;
 class usersController extends Controller
 {
+    public static function index(Request $request){
+        return Inertia::render('Users', [
+            'page' => "Users",
+            'users' => User::all(),
+        ]);
+    }
     public static function manage(Request $request){
 
         // Validate the request data

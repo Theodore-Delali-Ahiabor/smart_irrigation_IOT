@@ -8,6 +8,16 @@ use Inertia\Inertia;
 
 class loginController extends Controller
 {
+    public static function index(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return Inertia::render('Login');
+    }
+
     public static function login(Request $request){
 
         // Validate the request data

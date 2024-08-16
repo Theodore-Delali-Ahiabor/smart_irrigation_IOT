@@ -23,7 +23,7 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#"><i class="ft-power"></i> Logout</a>
+                  <Link class="dropdown-item" href="/logout"><i class="ft-power"></i> Logout</Link>
                 </div>
               </div>
             </li>

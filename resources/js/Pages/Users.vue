@@ -34,7 +34,14 @@
 
     import {ref} from 'vue';
 
-    let page = ref('Users');
+    // the props to receive data from Inertia
+    const props = defineProps({
+        users: Object,
+        page: String
+    });
+    // Access the data from inertia
+    const users = props.users;
+    let page = props.page;
 
 </script>
 
@@ -62,29 +69,24 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Username</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Active</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
+                                            <tr v-for="(row, index) in users">
+                                                <th scope="row">{{ index + 1 }}</th>
+                                                <td>{{row.first_name + ' ' + row.other_name + ' ' + row.last_name}}</td>
+                                                <td>{{row.email}}</td>
+                                                <td>
+                                                    <i class="la font-large-2" :class="{'la-toggle-on text-success' : row.active == 1,'la-toggle-off text-gray' : row.active == 0, }"></i>
+                                                </td>
+                                                <td>
+                                                    <i class="ft-edit text-success mr-1 font-large-1"></i>
+                                                    <i class="ft-user text-info font-large-1"></i>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

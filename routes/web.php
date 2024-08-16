@@ -9,17 +9,12 @@ use App\Http\Controllers\statisticsController;
 use App\Http\Controllers\settingsController;
 
 /* Redirect landing page to login */
-// Route::redirect('/', '/login', 301);
-Route::get('/', function(){
-    return Inertia::render('Login', ['page' => 'Login']);
-});
+Route::get('/', [loginController::class, 'index']);
 
 /* Login */
-Route::get('/login', function(){
-    return Inertia::render('Login', ['page' => 'Login']);
-})->name('login');
-
-Route::post('/login', [loginController::class, 'login'])->name('login.submit');
+Route::get('/login', [loginController::class, 'index'])->name('login');
+Route::post('/login', [loginController::class, 'login']);
+Route::get('/logout', [loginController::class, 'index'])->name('logout');
 
 Route::middleware('auth')->group(function(){
     /* Dashboard */
@@ -28,9 +23,7 @@ Route::middleware('auth')->group(function(){
     });
 
     /* Users */
-    Route::get('/users', function(){
-        return Inertia::render('Users', ['page' => "Dashboard"]);
-    });
+    Route::get('/users', [usersController::class, 'index']);
     Route::post('/user-manage', [usersController::class, 'manage']);
 
     /* Statistics */
