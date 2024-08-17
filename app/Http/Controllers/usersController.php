@@ -13,6 +13,7 @@ class usersController extends Controller
             'users' => User::all(),
         ]);
     }
+
     public static function manage(Request $request){
 
         // Validate the request data
@@ -43,10 +44,27 @@ class usersController extends Controller
         }
 
         // Return an Inertia response
-        return Inertia::render('/users', [
+        return Inertia::render('Users', [
             'type' => isset($type) ? $type : '',
             'message' => isset($message) ? $message : '',
             'data' => $validated,
+        ]);
+    }
+
+    public static function toggleStatus(Request $request){
+
+        $user = User::find($request->id);
+
+        if ($user) {
+            $user->active = ($request->status == 1) ? 0 : 1;
+            $user->save();
+            $type = "success";
+            $message = "User ".(($request->status == 1) ? 'deactivated' : 'activated')." successfully";
+        }
+
+        return Inertia::render('Users', [
+            'type' => isset($type) ? $type : '',
+            'message' => isset($message) ? $message : '',
         ]);
     }
 }

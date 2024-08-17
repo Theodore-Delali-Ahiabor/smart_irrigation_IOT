@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card ecom-card-1 bg-white overflow-hidden">
-                            <div class="card-content ecom-card2 height-180">
+                            <div class="card-content ecom-card2 min-height-180">
                                 <!--  -->
                             </div>
                         </div>

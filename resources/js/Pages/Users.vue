@@ -19,8 +19,11 @@
     const manageUserSubmit = () => {
         addUserForm.post('/user-manage', {
             onSuccess: (page) => {
-                console.log("page.props.type")
-                fireSimpleSWAL(page.props.type, page.props.message)
+                if(page.props.type == 'success'){
+                    $('.modal-backdrop').remove();
+                    router.get('/users');
+                }
+                fireSimpleSWAL(page.props.type, page.props.message);
             },
             onError: (errors) => {
                 for (let key in errors) {
@@ -33,6 +36,26 @@
         });
     }
 
+    const toggleStatus = (id, status) => {
+        //alert(id)
+        const toggleForm = useForm({
+            'id' : id,
+            'status' : status
+        }).post('/user-toggle-status', {
+            onSuccess: (page) => {
+                router.get('/users')
+                fireSimpleSWAL(page.props.type, page.props.message);
+            },
+            onError: (errors) => {
+                for (let key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        fireSimpleSWAL('warning', errors[key])
+                    }
+                    break;
+                }
+            },
+        })
+    }
 
     // the props to receive data from Inertia
     const props = defineProps({
@@ -63,7 +86,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card ecom-card-1 bg-white overflow-hidden">
-                            <div class="card-content ecom-card2 height-180">
+                            <div class="card-content ecom-card2 min-height-180">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
@@ -78,10 +101,10 @@
                                         <tbody>
                                             <tr v-for="(row, index) in users">
                                                 <th scope="row">{{ index + 1 }}</th>
-                                                <td>{{row.first_name + ' ' + row.other_name + ' ' + row.last_name}}</td>
+                                                <td>{{row.first_name + ' ' + ((row.other_name == null || row.other_name == '') ? '' : row.other_name + ' ') + row.last_name}}</td>
                                                 <td>{{row.email}}</td>
                                                 <td>
-                                                    <i class="la font-large-2" :class="{'la-toggle-on text-success' : row.active == 1,'la-toggle-off text-gray' : row.active == 0, }"></i>
+                                                    <i class="la font-large-2" :class="{'la-toggle-on text-success' : row.active == 1,'la-toggle-off text-danger' : row.active == 0 }" @click="toggleStatus(row.id, row.active)"></i>
                                                 </td>
                                                 <td>
                                                     <i class="ft-edit text-success mr-1 font-large-1"></i>

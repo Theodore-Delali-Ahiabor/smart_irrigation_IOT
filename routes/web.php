@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function(){
     /* Users */
     Route::get('/users', [usersController::class, 'index']);
     Route::post('/user-manage', [usersController::class, 'manage']);
+    Route::post('/user-toggle-status', [usersController::class, 'toggleStatus']);
 
 
     /* Settings */
