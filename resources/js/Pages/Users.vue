@@ -15,15 +15,14 @@
         confirmPassword: null,
     })
 
-
     const manageUserSubmit = () => {
         addUserForm.post('/user-manage', {
-            onSuccess: (page) => {
-                if(page.props.type == 'success'){
+            onSuccess: (response) => {
+                if(response.props.type == 'success'){
                     $('.modal-backdrop').remove();
                     router.get('/users');
                 }
-                fireSimpleSWAL(page.props.type, page.props.message);
+                fireSimpleSWAL(response.props.type, response.props.message);
             },
             onError: (errors) => {
                 for (let key in errors) {
@@ -37,14 +36,13 @@
     }
 
     const toggleStatus = (id, status) => {
-        //alert(id)
-        const toggleForm = useForm({
+        useForm({
             'id' : id,
             'status' : status
         }).post('/user-toggle-status', {
-            onSuccess: (page) => {
+            onSuccess: (response) => {
                 router.get('/users')
-                fireSimpleSWAL(page.props.type, page.props.message);
+                fireSimpleSWAL(response.props.type, response.props.message);
             },
             onError: (errors) => {
                 for (let key in errors) {
@@ -57,15 +55,21 @@
         })
     }
 
+    let getUser = (id) => {
+        $(".userModalTtle").html(id > 0 ? 'Edit User':'Add New User');
+        (id > 0 ? $(".userEdit").addClass('d-none') : $(".userEdit").removeClass('d-none'))
+    }
+
     // the props to receive data from Inertia
     const props = defineProps({
         users: Object,
-        page: String
+        page: String,
+        modalTitle: String
     });
+
     // Access the data from inertia
     const users = props.users;
-    let page = props.page;
-
+    const page = props.page;
 </script>
 
 <template>
@@ -79,7 +83,7 @@
                     <h3 class="content-header-title" id="page">{{ page }}</h3>
                 </div>
                 <div class="content-header-right col-md-4 col-12 mb-2 d-flex justify-content-end">
-                    <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#manageUserModal"><i class="la la-user"></i> New User</button>
+                    <button type="button" class="btn btn-info btn-min-width mr-1 mb-1" data-toggle="modal" data-target="#manageUserModal" @click="getUser(0)"><i class="la la-user"></i> New User</button>
                 </div>
             </div>
             <div class="content-body">
@@ -107,8 +111,7 @@
                                                     <i class="la font-large-2" :class="{'la-toggle-on text-success' : row.active == 1,'la-toggle-off text-danger' : row.active == 0 }" @click="toggleStatus(row.id, row.active)"></i>
                                                 </td>
                                                 <td>
-                                                    <i class="ft-edit text-success mr-1 font-large-1"></i>
-                                                    <i class="ft-user text-info font-large-1"></i>
+                                                    <i class="ft-edit text-success mr-1 font-large-1" data-toggle="modal" data-target="#manageUserModal" @click="getUser(row.id)"></i>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -126,7 +129,7 @@
     <div class="modal-dialog " role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title userModalTtle" id="exampleModalLongTitle">{{ modalTitle }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -153,13 +156,13 @@
                     <input type="email" class="form-control" v-model="addUserForm.email">
                 </fieldset>
 
-                <h5 class="mt-2">Password</h5>
-                <fieldset class="form-group">
+                <h5 class="mt-2 userEdit">Password</h5>
+                <fieldset class="form-group userEdit">
                     <input type="password" class="form-control" v-model="addUserForm.password">
                 </fieldset>
 
-                <h5 class="mt-2">Confirm Password</h5>
-                <fieldset class="form-group">
+                <h5 class="mt-2 userEdit">Confirm Password</h5>
+                <fieldset class="form-group userEdit">
                     <input type="password" class="form-control" v-model="addUserForm.confirmPassword">
                 </fieldset>
                 <div class="modal-footer">

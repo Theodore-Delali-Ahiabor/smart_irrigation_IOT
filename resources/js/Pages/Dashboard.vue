@@ -110,28 +110,75 @@
 
 
     // Define chart options
-    const chartOptions = ref({
+    let chartOptions = ref({
     chart: {
         id: 'sales-chart'
     },
     xaxis: {
-        categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+        categories: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        labels: {
+            show: false
+        }
     }
     });
 
     // Define the data series
-    const series = ref([{
-    name: 'Sales',
-    data: [30, 40, 35, 50, 49, 60, 70]
+    let series = ref([{
+        name: 'Moisture',
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+        name: 'Humidity',
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }]);
+
 
 
     // the props to receive data from Inertia
     const props = defineProps({
-        page: String
+        page: String,
     });
     // Access the data from inertia
     let page = props.page;
+
+
+    setInterval(() => {
+        $.ajax({
+            type: 'GET',
+            url: '/getArduinoReadings',
+            success: function(response){
+                ApexCharts.exec('sales-chart', 'updateOptions', {
+                    chart: {
+                        id: 'sales-chart'
+                    },
+                    xaxis: {
+                        categories:  response.timestampArray
+                    }
+                }, true);
+
+                ApexCharts.exec('sales-chart', 'updateSeries', [
+                    {name: 'Moisture',
+                    data: response.moistureArray},
+                    {name: 'Humidity',
+                    data: response.humidityArray}
+                ], true);
+
+                $('#humidity').html(response.humidity);
+                $('#moisture').html(response.moisture);
+                if(response.pump = 1){
+                    $('#pump').addClass("text-success");
+                    $('#pump').addClass("la-toggle-on");
+                    $('#pump').removeClass("text-danger");
+                    $('#pump').removeClass("la-toggle-off");
+                }else{
+                    $('#pump').addClass("text-danger");
+                    $('#pump').addClass("la-toggle-off");
+                    $('#pump').removeClass("text-success");
+                    $('#pump').removeClass("la-toggle-on");
+                }
+            }
+        })
+    }, 5000);
 </script>
 <template>
     <Nav></Nav>
@@ -154,7 +201,7 @@
                                 <i class="ft-pie-chart danger font-large-1 float-right p-1"></i>
                             </div>
                             <div class="progress-stats-container ct-golden-section height-75 position-relative p-3 d-flex align-items-center justify-content-center w-100 position-relative bottom-0">
-                                <div class="text-center display-4">0</div>
+                                <div class="text-center display-4">{{ '0' }}</div>
                             </div>
                         </div>
                     </div>
@@ -164,10 +211,10 @@
                         <div class="card-content ecom-card2 height-180">
                             <h5 class="text-muted info position-absolute p-1">Humitidy</h5>
                             <div>
-                                <i class="ft-activity info font-large-1 float-right p-1"></i>
+                                <i class="la la-cloud info font-large-1 float-right p-1"></i>
                             </div>
                             <div class="progress-stats-container ct-golden-section height-75 position-relative p-3 d-flex align-items-center justify-content-center w-100 position-relative bottom-0">
-                                <div class="text-center display-4">0</div>
+                                <div class="text-center display-4" id="humidity">0</div>
                             </div>
                         </div>
                     </div>
@@ -177,10 +224,10 @@
                         <div class="card-content ecom-card2 height-180">
                             <h5 class="text-muted success position-absolute p-1">Soil Moisture</h5>
                             <div>
-                                <i class="ft-shopping-cart success font-large-1 float-right p-1"></i>
+                                <i class="la la-area-chart success font-large-1 float-right p-1"></i>
                             </div>
                             <div class="progress-stats-container ct-golden-section height-75 position-relative p-3 d-flex align-items-center justify-content-center w-100 position-relative bottom-0">
-                                <div class="text-center display-4">0</div>
+                                <div class="text-center display-4" id="moisture">0</div>
                             </div>
                         </div>
                     </div>
@@ -194,7 +241,7 @@
                             </div>
                             <div class="progress-stats-container ct-golden-section height-75 position-relative p-3 d-flex align-items-center justify-content-center w-100 position-relative bottom-0">
                                 <span>OFF</span>
-                                <i class="text-center la la-toggle-off font-large-5 p-1"></i>
+                                <i class="text-center la la-toggle-off font-large-5 p-1" id="pump"></i>
                                 <span>ON</span>
                             </div>
                         </div>

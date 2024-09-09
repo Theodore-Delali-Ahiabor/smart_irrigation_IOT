@@ -1,6 +1,5 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\usersController;
@@ -15,10 +14,13 @@ Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'login']);
 Route::get('/logout', [loginController::class, 'index'])->name('logout');
 
+
+Route::get('/getArduinoReadings', [dashboardController::class, 'getArduinoReadings']);
+Route::get('/setArduinoReadings', [dashboardController::class, 'setArduinoReadings']);
+
 Route::middleware('auth')->group(function(){
     /* Dashboard */
     Route::get('/dashboard', [dashboardController::class, 'index']);
-
 
     /* Users */
     Route::get('/users', [usersController::class, 'index']);

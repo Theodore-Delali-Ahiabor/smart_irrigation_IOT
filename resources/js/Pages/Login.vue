@@ -9,8 +9,8 @@
     const loginSubmit = () => {
         form.post('/login', {
             onSuccess: (page) => {
-                fireSimpleSWAL(page.props.type, page.props.message)
                 router.get('/dashboard');
+                fireSimpleSWAL(page.props.type, page.props.message)
             },
             onError: (errors) => {
                 for (let key in errors) {

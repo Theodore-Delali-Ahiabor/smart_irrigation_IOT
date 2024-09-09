@@ -17,7 +17,7 @@
                 </li>
                 <li class="nav-item" :class="{'active' : $page.component == 'Users'}"><Link href="/users"><i class="la la-users"></i><span class="menu-title" data-i18n="">Users</span></Link>
                 </li>
-                <li class="nav-item" :class="{'active' : $page.component == 'Settings'}"><Link href="/settings"><i class="la la-gear"></i><span class="menu-title" data-i18n="">Settings</span></Link>
+                <li class="nav-item d-none" :class="{'active' : $page.component == 'Settings'}"><Link href="/settings"><i class="la la-gear"></i><span class="menu-title" data-i18n="">Settings</span></Link>
                 </li>
             </ul>
         </div>

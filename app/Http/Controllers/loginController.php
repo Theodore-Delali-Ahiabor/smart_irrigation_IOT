@@ -30,8 +30,10 @@ class loginController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
 
+            $name = Auth::user()->first_name;
+
             $type = "success";
-            $message = "Welcome __, you looged in successfully";
+            $message = "Welcome $name, you looged in successfully";
         }else{
             $type = "warning";
             $message = "Invalid login credentials";

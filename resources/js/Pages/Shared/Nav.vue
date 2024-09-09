@@ -16,8 +16,6 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="arrow_box_right"><a class="dropdown-item" href="#"><span class="avatar avatar-online"><img src="theme-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><span class="user-name text-bold-700 ml-1">John Doe</span></span></a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
-                  <div class="dropdown-divider"></div>
                   <Link class="dropdown-item" href="/logout"><i class="ft-power"></i> Logout</Link>
                 </div>
               </div>
